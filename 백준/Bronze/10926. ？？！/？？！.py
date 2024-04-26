@@ -1,3 +1,3 @@
-id = input()
+name = input()
 
-print(id+'??!')
+print(name + "??!")
