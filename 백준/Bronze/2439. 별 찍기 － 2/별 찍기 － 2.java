@@ -9,16 +9,17 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 // N - i 만큼 " " 출력 후 "*" * i
+        StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= N; i++) {
             for (int j = N-i; j >= 1; j--) {
-                System.out.print(" ");
+                sb.append(" ");
             }
             for (int k = 1; k <= i; k++) {
-                System.out.print("*");
+                sb.append("*");
             }
-            System.out.println();
+            sb.append("\n");
         }
-
+        System.out.println(sb);
     }
 
 }
