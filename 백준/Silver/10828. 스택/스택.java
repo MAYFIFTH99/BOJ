@@ -1,77 +1,57 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int[] arr = new int[10001];
-    static int top=-1;
-
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
 
-        int num=0;
+        Deque<Integer> stack = new ArrayDeque<>();
+
         int N = Integer.parseInt(br.readLine());
         for (int i = 0; i < N; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            String ir = st.nextToken();
-            if (st.hasMoreTokens()) {
-                num = Integer.parseInt(st.nextToken());
-            }
-            switch (ir) {
+            st = new StringTokenizer(br.readLine());
+
+            String instr = st.nextToken();
+
+            switch (instr) {
                 case "push":
-                    push(num);
+                    stack.push(Integer.valueOf(st.nextToken()));
                     break;
                 case "pop":
-                    System.out.println(pop());
-                    break;
-                case "top":
-                    System.out.println(peek());
+                    if (stack.isEmpty()) {
+                        sb.append("-1").append("\n");
+                    } else {
+                        sb.append(stack.pop()).append("\n");
+                    }
                     break;
                 case "size":
-                    System.out.println(size());
+                    sb.append(stack.size()).append("\n");
                     break;
                 case "empty":
-                    System.out.println(isEmpty());
+                    if (stack.isEmpty()) {
+                        sb.append("1").append("\n");
+                    } else {
+                        sb.append("0").append("\n");
+                    }
                     break;
-                default:
+                case "top":
+                    if (stack.isEmpty()) {
+                        sb.append("-1").append("\n");
+                    } else {
+                        sb.append(stack.peek()).append("\n");
+                    }
                     break;
             }
         }
-    }
-
-    private static int isEmpty() {
-        if (size() ==0) {
-            return 1;
-        }
-        return 0;
-    }
-
-    private static int size() {
-        return top+1;
-    }
-
-    private static int peek() {
-        if (size() > 0) {
-            return arr[top];
-        } else {
-            return -1;
-        }
-    }
-
-    private static int pop() {
-        if (top >= 0) {
-            int oldX = arr[top];
-            top--;
-            return oldX;
-        } else {
-            return -1;
-        }
-    }
-
-    public static void push(int x) {
-        arr[++top] = x;
+        System.out.println(sb);
     }
 }
 
