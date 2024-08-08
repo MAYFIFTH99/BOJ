@@ -1,37 +1,38 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Array;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.StringTokenizer;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Deque<Character> stack = new ArrayDeque<Character>();
+        StringBuilder sb = new StringBuilder();
+
         int T = Integer.parseInt(br.readLine());
 
-        ArrayDeque<Character> stack = new ArrayDeque<>();
-        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < T; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
+
             while (st.hasMoreTokens()) {
-                char[] arr = st.nextToken().toCharArray();
-                for (char c : arr) {
+                String word = st.nextToken();
+                char[] charArray = word.toCharArray();
+                for (char c : charArray) {
                     stack.push(c);
                 }
-                for (Character c : stack) {
+                while(!stack.isEmpty()) {
                     sb.append(stack.pop());
                 }
                 sb.append(" ");
-                System.out.print(sb);
-                sb.setLength(0);
             }
-            System.out.println();
+            sb.append("\n");
+            }
+        System.out.println(sb);
         }
 
-        
-        
-    }
 }
-
 
