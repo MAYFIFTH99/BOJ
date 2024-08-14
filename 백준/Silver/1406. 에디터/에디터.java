@@ -1,59 +1,62 @@
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Deque<Character> left = new ArrayDeque<>();
-        Deque<Character> right = new ArrayDeque<>();
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        // 초기 입력 문자열 처리
         String input = br.readLine();
-        for (char c : input.toCharArray()) {
-            left.addLast(c);
+        int countInstruct = Integer.parseInt(br.readLine());
+
+        StringTokenizer st;
+
+        ArrayDeque<Character> leftQueue = new ArrayDeque<>();
+        ArrayDeque<Character> rightQueue = new ArrayDeque<>();
+
+        char[] charArray = input.toCharArray();
+        for (char c : charArray) {
+            leftQueue.offer(c);
         }
 
-        int M = Integer.parseInt(br.readLine());
-
-        for (int i = 0; i < M; i++) {
-            String instruction = br.readLine();
-            StringTokenizer st = new StringTokenizer(instruction, " ");
-            String command = st.nextToken();
-
-            switch (command) {
+        for (int i = 0; i < countInstruct; i++) {
+            st = new StringTokenizer(br.readLine());
+            String instruction = st.nextToken();
+            switch (instruction) {
+                case "P":
+                    String x = st.nextToken();
+                    leftQueue.offerLast(x.charAt(0));
+                    break;
                 case "L":
-                    if (!left.isEmpty()) {
-                        right.addFirst(left.removeLast());
+                    if(!leftQueue.isEmpty()){
+                        rightQueue.offerFirst(leftQueue.pollLast());
                     }
                     break;
                 case "D":
-                    if (!right.isEmpty()) {
-                        left.addLast(right.removeFirst());
+                    if(!rightQueue.isEmpty()){
+                        leftQueue.offerLast(rightQueue.pollFirst());
                     }
                     break;
                 case "B":
-                    if (!left.isEmpty()) {
-                        left.removeLast();
+                    if(!leftQueue.isEmpty()){
+                        leftQueue.pollLast();
                     }
-                    break;
-                case "P":
-                    char c = st.nextToken().charAt(0);
-                    left.addLast(c);
                     break;
             }
         }
-
         StringBuilder sb = new StringBuilder();
-        for (char c : left) {
+        for (Character c : leftQueue) {
             sb.append(c);
         }
-        for (char c : right) {
+        for (Character c : rightQueue) {
             sb.append(c);
         }
-
         System.out.println(sb);
+
     }
 }
