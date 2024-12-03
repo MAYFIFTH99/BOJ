@@ -1,30 +1,27 @@
-
-
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
 
-    public static void main(String[] args) {
+        int[] DP = new int[N + 1];
+        DP[0] = 0;
+        DP[1] = 0;
 
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-
-        int[] dp = new int[N + 1];
-
-        dp[0] = 0;
-        dp[1] = 0;
-
-        for (int i = 2; i <= N; i++) {
-            // 우선 1을 뺀 값의 연산 횟수를 정의한다.
-            dp[i] = dp[i - 1] + 1;
-
-            if (i % 2 == 0) {
-                dp[i] = Math.min(dp[i / 2]+1, dp[i]);
-            } if(i%3==0) {
-                dp[i] = Math.min(dp[i / 3] + 1, dp[i]);
+        for (int i = 2; i < N + 1; i++) {
+            if (i % 6 == 0) {
+                DP[i] = Math.min(DP[i - 1], Math.min(DP[i / 3], DP[i / 2])) + 1;
+            } else if (i % 3 == 0) {
+                DP[i] = Math.min(DP[i - 1], DP[i / 3]) + 1;
+            } else if (i % 2 == 0) {
+                DP[i] = Math.min(DP[i - 1], DP[i / 2]) + 1;
+            } else {
+                DP[i] = DP[i - 1] + 1;
             }
         }
-        System.out.println(dp[N]);
+        System.out.println(DP[N]);
     }
 }
-
