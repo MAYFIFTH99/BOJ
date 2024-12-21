@@ -11,6 +11,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
+
         int N = Integer.parseInt(st.nextToken()); // 전체 사이트 수
         int M = Integer.parseInt(st.nextToken()); // 찾으려는 사이트 수
 
@@ -24,8 +26,8 @@ public class Main {
         }
 
         for (int i = 0; i < M; i++) {
-            System.out.println(map.get(br.readLine()));
-
+            sb.append(map.get(br.readLine())).append('\n');
         }
+        System.out.println(sb);
     }
 }
