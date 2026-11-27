@@ -2,3 +2,6 @@
 .idea/
 *.iml
 out/
+
+# 로컬 실행용 러너 (IntelliJ 설정 전용)
+.boj-runner/
